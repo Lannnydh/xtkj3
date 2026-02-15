@@ -118,12 +118,7 @@ export default function Confess() {
                     {/* Left Column: Input Forms */}
                     <div className="confess-inputs">
                         {/* NGL Section */}
-                        <motion.div
-                            className="confess-card glass-card ngl-card"
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 0.1 }}
-                        >
+                        <div className="confess-card glass-card secret-card">
                             <div className="card-header">
                                 <Ghost className="ngl-icon" size={24} />
                                 <h2>Rahasia (Privat)</h2>
@@ -132,7 +127,7 @@ export default function Confess() {
                             <a href={nglLink} target="_blank" rel="noopener noreferrer" className="btn-ngl">
                                 Kirim via NGL <ExternalLink size={16} />
                             </a>
-                        </motion.div>
+                        </div>
 
                         {/* Public Wall Form */}
                         <motion.div

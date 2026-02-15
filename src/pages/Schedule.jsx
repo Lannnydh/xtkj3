@@ -105,7 +105,7 @@ export default function Schedule() {
                                                 {typeof s.jam === 'string' ? s.jam : `Jam ${s.jam}`}
                                             </td>
                                             <td className="time-cell">{s.time}</td>
-                                            <td>{typeof s.jam === 'string' ? '—' : <span className="pending-subject">Menyusul</span>}</td>
+                                            <td>{typeof s.jam === 'string' ? '—' : <span className="pending-subject">Menunggu jadwal dari sekolah</span>}</td>
                                         </motion.tr>
                                     ))}
                                 </tbody>
@@ -135,7 +135,7 @@ export default function Schedule() {
                                                 {typeof s.jam === 'string' ? s.jam : `Jam ${s.jam}`}
                                             </td>
                                             <td className="time-cell">{s.time}</td>
-                                            <td>{typeof s.jam === 'string' ? '—' : <span className="pending-subject">Menyusul</span>}</td>
+                                            <td>{typeof s.jam === 'string' ? '—' : <span className="pending-subject">Menunggu jadwal dari sekolah</span>}</td>
                                         </motion.tr>
                                     ))}
                                 </tbody>
@@ -167,7 +167,7 @@ export default function Schedule() {
                                                             <span className="acc-time">{s.time}</span>
                                                             <div>
                                                                 <div className="acc-subject">
-                                                                    {typeof s.jam === 'string' ? s.jam : `Jam ${s.jam} — Menyusul`}
+                                                                    {typeof s.jam === 'string' ? s.jam : `Jam ${s.jam} — Menunggu jadwal dari sekolah`}
                                                                 </div>
                                                             </div>
                                                         </div>
