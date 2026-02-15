@@ -1,0 +1,147 @@
+.announce-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 24px;
+    position: sticky;
+    top: var(--nav-height);
+    z-index: 10;
+    background: rgba(10, 14, 26, 0.8);
+    backdrop-filter: blur(12px);
+    padding: 16px 0;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--bg-glass);
+    border: 1px solid var(--border-glass);
+    border-radius: var(--radius-full);
+    padding: 10px 18px;
+    flex: 1;
+    min-width: 200px;
+}
+
+.search-box svg {
+    color: var(--text-muted);
+    flex-shrink: 0;
+}
+
+.search-box input {
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+    width: 100%;
+}
+
+.search-box input::placeholder {
+    color: var(--text-muted);
+}
+
+.filter-chips {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.chip {
+    padding: 8px 18px;
+    border-radius: var(--radius-full);
+    background: var(--bg-glass);
+    border: 1px solid var(--border-glass);
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.chip:hover {
+    border-color: var(--accent-primary);
+    color: var(--text-primary);
+}
+
+.chip.active {
+    background: var(--accent-gradient);
+    border-color: transparent;
+    color: white;
+}
+
+.announce-feed {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.announce-card {
+    display: flex;
+    gap: 16px;
+    padding: 20px;
+}
+
+.announce-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.announce-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.announce-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.announce-top h3 {
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.announce-desc {
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.announce-meta {
+    display: flex;
+    gap: 16px;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+.announce-meta span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.empty-msg {
+    text-align: center;
+    color: var(--text-muted);
+    padding: 40px;
+}
+
+@media (max-width: 600px) {
+    .announce-card {
+        flex-direction: column;
+    }
+
+    .announce-top {
+        flex-direction: column;
+    }
+}

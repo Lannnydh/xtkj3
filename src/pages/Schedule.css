@@ -1,0 +1,262 @@
+.schedule-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.info-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.info-box svg {
+    color: var(--accent-primary);
+    flex-shrink: 0;
+}
+
+.table-section-title {
+    font-family: var(--font-primary);
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding: 16px 18px 8px;
+    color: var(--accent-primary);
+}
+
+/* Desktop table */
+.schedule-table-wrap {
+    overflow-x: auto;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-glass);
+    background: var(--bg-glass);
+    backdrop-filter: blur(12px);
+    margin-bottom: 20px;
+}
+
+.friday-table {
+    border-color: rgba(245, 158, 11, 0.2);
+}
+
+.friday-table .table-section-title {
+    color: var(--warning);
+}
+
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.schedule-table th {
+    text-align: left;
+    padding: 14px 18px;
+    font-family: var(--font-primary);
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--border-glass);
+}
+
+.schedule-table td {
+    padding: 12px 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    color: var(--text-secondary);
+}
+
+.schedule-table tr:hover td {
+    background: var(--bg-glass-hover);
+    color: var(--text-primary);
+}
+
+.jam-cell {
+    font-family: var(--font-primary);
+    font-weight: 700;
+    color: var(--accent-primary) !important;
+    font-size: 0.9rem;
+}
+
+.break-row td {
+    background: rgba(245, 158, 11, 0.05) !important;
+}
+
+.break-cell {
+    font-family: var(--font-primary);
+    font-weight: 600;
+    color: var(--warning) !important;
+    font-style: italic;
+}
+
+.time-cell {
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    color: var(--text-muted) !important;
+    font-size: 0.85rem;
+}
+
+.pending-subject {
+    color: var(--text-muted);
+    font-style: italic;
+    opacity: 0.6;
+}
+
+/* Mobile accordion */
+.schedule-mobile {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.accordion-item {
+    overflow: hidden;
+}
+
+.accordion-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 20px;
+    background: transparent;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+
+.accordion-day {
+    font-family: var(--font-primary);
+    font-weight: 700;
+    flex: 1;
+    text-align: left;
+}
+
+.accordion-count {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.accordion-chevron {
+    transition: transform 0.3s;
+    color: var(--text-muted);
+}
+
+.accordion-chevron.open {
+    transform: rotate(180deg);
+}
+
+.accordion-body {
+    padding: 0 20px 16px;
+}
+
+.accordion-row {
+    display: flex;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    align-items: flex-start;
+}
+
+.break-row-mobile {
+    background: rgba(245, 158, 11, 0.05);
+    border-radius: var(--radius-sm);
+    padding: 10px 8px !important;
+}
+
+.acc-time {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    min-width: 100px;
+    font-variant-numeric: tabular-nums;
+}
+
+.acc-subject {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.acc-teacher {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* Piket */
+.piket-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 14px;
+}
+
+.piket-card {
+    padding: 20px;
+}
+
+.piket-card h3 {
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    margin-bottom: 12px;
+    color: var(--accent-primary);
+}
+
+.piket-names {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.piket-name {
+    padding: 4px 12px;
+    background: var(--bg-glass);
+    border: 1px solid var(--border-glass);
+    border-radius: var(--radius-full);
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+/* Ujian */
+.ujian-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
+}
+
+.ujian-card {
+    padding: 20px;
+}
+
+.ujian-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    background: var(--danger-bg);
+    color: var(--danger);
+    border-radius: var(--radius-full);
+    font-size: 0.7rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.ujian-card h3 {
+    font-family: var(--font-primary);
+    font-size: 1rem;
+    margin-bottom: 4px;
+}
+
+.ujian-card p {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+
+@media (max-width: 768px) {
+    .schedule-table-wrap {
+        display: none;
+    }
+
+    .schedule-mobile {
+        display: flex;
+    }
+}

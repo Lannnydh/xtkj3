@@ -1,0 +1,234 @@
+.confess-container {
+    max-width: 1200px;
+}
+
+.confess-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.confess-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 30px;
+}
+
+/* Cards */
+.confess-card {
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    color: var(--text-primary);
+}
+
+.card-header h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.ngl-icon {
+    color: #ec4899;
+}
+
+.wall-icon {
+    color: #6366f1;
+}
+
+/* NGL Button */
+.btn-ngl {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #ec4899, #be185d);
+    color: white;
+    padding: 14px;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    margin-top: 16px;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
+}
+
+.btn-ngl:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(236, 72, 153, 0.4);
+}
+
+/* Form */
+.rules-text {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+}
+
+.form-group {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.confess-input,
+.confess-select,
+.confess-textarea {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border-glass);
+    padding: 12px;
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    transition: all 0.2s;
+}
+
+.confess-input:focus,
+.confess-select:focus,
+.confess-textarea:focus {
+    border-color: var(--accent-primary);
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.confess-select {
+    width: 140px;
+    cursor: pointer;
+}
+
+.confess-textarea {
+    resize: vertical;
+    min-height: 100px;
+    margin-bottom: 16px;
+}
+
+.btn-submit {
+    width: 100%;
+    justify-content: center;
+}
+
+/* Wall */
+.wall-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    color: var(--accent-secondary);
+}
+
+.messages-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+/* Message Card */
+.message-card {
+    padding: 20px;
+    border-left: 4px solid var(--accent-primary);
+}
+
+.msg-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.msg-sender {
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+.msg-tag {
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    background: rgba(255, 255, 255, 0.1);
+    font-weight: 500;
+}
+
+.tag-curhat {
+    color: #6366f1;
+    background: rgba(99, 102, 241, 0.15);
+}
+
+.tag-spill {
+    color: #ec4899;
+    background: rgba(236, 72, 153, 0.15);
+}
+
+.tag-motivasi {
+    color: #10b981;
+    background: rgba(16, 185, 129, 0.15);
+}
+
+.tag-info {
+    color: #f59e0b;
+    background: rgba(245, 158, 11, 0.15);
+}
+
+.tag-gombal {
+    color: #8b5cf6;
+    background: rgba(139, 92, 246, 0.15);
+}
+
+.msg-content {
+    font-size: 1rem;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    white-space: pre-wrap;
+    line-height: 1.5;
+}
+
+.msg-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.btn-like {
+    background: transparent;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    border-radius: var(--radius-full);
+    transition: all 0.2s;
+}
+
+.btn-like:hover {
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.1);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .confess-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .confess-inputs {
+        order: -1;
+    }
+
+    .confess-wall {
+        order: 2;
+    }
+}
