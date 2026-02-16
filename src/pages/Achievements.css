@@ -1,13 +1,19 @@
 .achievements-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     gap: 16px;
 }
 
 .achieve-card {
-    display: flex;
-    gap: 16px;
-    padding: 22px;
+    padding: 24px 20px;
+    position: relative;
+    overflow: hidden;
+    border-left: 3px solid transparent;
+    transition: border-color 0.3s;
+}
+
+.achieve-card:hover {
+    border-left-color: var(--accent-primary);
 }
 
 .achieve-icon {
@@ -17,43 +23,70 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
+    margin-bottom: 14px;
+    position: relative;
 }
 
-.achieve-body {
-    flex: 1;
+.achieve-icon::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: var(--radius-md);
+    background: inherit;
+    opacity: 0.3;
+    filter: blur(8px);
+    z-index: -1;
 }
 
 .achieve-cat {
     display: inline-block;
-    padding: 2px 10px;
-    background: var(--bg-glass);
+    padding: 3px 12px;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.08));
+    border: 1px solid rgba(99, 102, 241, 0.2);
     border-radius: var(--radius-full);
-    font-size: 0.68rem;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    font-size: 0.7rem;
     font-weight: 600;
-    margin-bottom: 6px;
+    color: var(--accent-primary);
+    margin-bottom: 8px;
 }
 
-.achieve-body h3 {
+.achieve-card h3 {
     font-family: var(--font-primary);
-    font-size: 0.95rem;
+    font-size: 1.05rem;
     font-weight: 700;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
 }
 
 .achieve-event {
-    color: var(--text-muted);
-    font-size: 0.82rem;
-    margin-bottom: 6px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
 }
 
 .achieve-year {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    font-weight: 600;
+    font-size: 0.8rem;
+    color: var(--accent-primary);
+    font-weight: 700;
+    text-shadow: 0 0 8px var(--accent-primary-glow);
+}
+
+.achieve-shine {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.06), transparent);
+    pointer-events: none;
+    transition: left 0.7s ease;
+}
+
+.achieve-card:hover .achieve-shine {
+    left: 100%;
+}
+
+[data-theme="light"] .achieve-shine {
+    background: linear-gradient(90deg, transparent, rgba(79, 70, 229, 0.12), transparent);
 }
 
 @media (max-width: 600px) {

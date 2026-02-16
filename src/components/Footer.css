@@ -1,8 +1,26 @@
 .footer {
-    border-top: 1px solid var(--border-glass);
-    background: rgba(10, 14, 26, 0.6);
+    border-top: 1px solid rgba(99, 102, 241, 0.1);
+    background: linear-gradient(180deg, transparent, rgba(5, 8, 22, 0.8));
     backdrop-filter: blur(12px);
     margin-top: 80px;
+    transition: all 0.5s;
+    position: relative;
+}
+
+.footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-primary), var(--accent-secondary), transparent);
+    opacity: 0.4;
+}
+
+[data-theme="light"] .footer {
+    background: linear-gradient(180deg, transparent, rgba(250, 251, 255, 0.9));
+    border-top-color: rgba(79, 70, 229, 0.1);
 }
 
 .footer-inner {
@@ -17,24 +35,30 @@
 .footer-logo {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     font-family: var(--font-primary);
     font-weight: 800;
-    font-size: 1.1rem;
-    color: var(--text-primary);
+    font-size: 1.2rem;
     margin-bottom: 12px;
+    background: var(--accent-gradient);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradient-shift 4s ease infinite;
 }
 
 .footer-logo-img {
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
     object-fit: contain;
+    filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.3));
 }
 
 .footer-desc {
     color: var(--text-muted);
     font-size: 0.9rem;
-    line-height: 1.6;
+    line-height: 1.7;
 }
 
 .footer-links {
@@ -46,24 +70,28 @@
 .footer-links h4 {
     font-family: var(--font-primary);
     font-size: 0.85rem;
-    color: var(--text-secondary);
+    color: var(--accent-primary);
     text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 4px;
+    letter-spacing: 1.5px;
+    margin-bottom: 8px;
 }
 
 .footer-links a {
     color: var(--text-muted);
     font-size: 0.9rem;
-    transition: color 0.2s;
+    transition: all 0.3s;
+    display: block;
+    padding: 2px 0;
 }
 
 .footer-links a:hover {
     color: var(--accent-primary);
+    text-shadow: 0 0 10px var(--accent-primary-glow);
+    padding-left: 6px;
 }
 
 .footer-bottom {
-    border-top: 1px solid var(--border-glass);
+    border-top: 1px solid rgba(99, 102, 241, 0.08);
     text-align: center;
     padding: 20px 24px;
 }
@@ -79,7 +107,7 @@
 
 .heart-icon {
     color: var(--danger);
-    display: inline;
+    filter: drop-shadow(0 0 4px rgba(239, 68, 68, 0.4));
 }
 
 @media (max-width: 768px) {

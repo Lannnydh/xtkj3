@@ -52,7 +52,7 @@ export default function Confess() {
             name: sender || 'Anonim',
             message: newMessage,
             tag: tag,
-            color: '#8b5cf6', // Bisa dirandomize kalau mau
+            color: '#8b5cf6',
             likes: 0
         }
 
@@ -65,14 +65,12 @@ export default function Confess() {
         } else {
             setNewMessage('')
             setSender('')
-            // Pesan akan muncul otomatis karena subscription
         }
 
         setIsSubmitting(false)
     }
 
     const handleLike = async (id, currentLikes) => {
-        // Optimistic update
         setMessages(prev => prev.map(m => m.id === id ? { ...m, likes: m.likes + 1 } : m))
 
         const { error } = await supabase
@@ -82,7 +80,6 @@ export default function Confess() {
 
         if (error) {
             console.error('Error liking message:', error)
-            // Revert optimistic update if error
             setMessages(prev => prev.map(m => m.id === id ? { ...m, likes: m.likes - 1 } : m))
         }
     }
@@ -118,26 +115,49 @@ export default function Confess() {
                     {/* Left Column: Input Forms */}
                     <div className="confess-inputs">
                         {/* NGL Section */}
-                        <div className="confess-card glass-card secret-card">
+                        <motion.div
+                            className="confess-card glass-card secret-card"
+                            initial={{ opacity: 0, x: -30 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.1, type: 'spring', stiffness: 200 }}
+                            whileHover={{ scale: 1.02, boxShadow: '0 8px 30px rgba(99,102,241,0.15)' }}
+                        >
                             <div className="card-header">
-                                <Ghost className="ngl-icon" size={24} />
+                                <motion.div
+                                    animate={{ y: [0, -5, 0], rotate: [0, 5, -5, 0] }}
+                                    transition={{ duration: 3, repeat: Infinity }}
+                                >
+                                    <Ghost className="ngl-icon" size={24} />
+                                </motion.div>
                                 <h2>Rahasia (Privat)</h2>
                             </div>
                             <p>Kirim pesan anonim langsung ke admin. Tidak akan muncul di sini.</p>
-                            <a href={nglLink} target="_blank" rel="noopener noreferrer" className="btn-ngl">
+                            <motion.a
+                                href={nglLink}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="btn-ngl"
+                                whileHover={{ scale: 1.05, y: -2 }}
+                                whileTap={{ scale: 0.95 }}
+                            >
                                 Kirim via NGL <ExternalLink size={16} />
-                            </a>
-                        </div>
+                            </motion.a>
+                        </motion.div>
 
                         {/* Public Wall Form */}
                         <motion.div
                             className="confess-card glass-card wall-form-card"
-                            initial={{ opacity: 0, x: -20 }}
+                            initial={{ opacity: 0, x: -30 }}
                             animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 0.2 }}
+                            transition={{ delay: 0.2, type: 'spring', stiffness: 200 }}
                         >
                             <div className="card-header">
-                                <MessageCircle className="wall-icon" size={24} />
+                                <motion.div
+                                    animate={{ scale: [1, 1.1, 1] }}
+                                    transition={{ duration: 2, repeat: Infinity }}
+                                >
+                                    <MessageCircle className="wall-icon" size={24} />
+                                </motion.div>
                                 <h2>Dinding Kelas (Publik)</h2>
                             </div>
                             <p className="rules-text"><AlertCircle size={14} /> Gunakan bahasa yang sopan. No SARA/Bullying.</p>
@@ -171,9 +191,15 @@ export default function Confess() {
                                     required
                                     rows="4"
                                 ></textarea>
-                                <button type="submit" className="btn-primary btn-submit" disabled={isSubmitting}>
+                                <motion.button
+                                    type="submit"
+                                    className="btn-primary btn-submit"
+                                    disabled={isSubmitting}
+                                    whileHover={{ scale: 1.03 }}
+                                    whileTap={{ scale: 0.97 }}
+                                >
                                     {isSubmitting ? 'Mengirim...' : <><Send size={18} /> Kirim ke Dinding</>}
-                                </button>
+                                </motion.button>
                             </form>
                         </motion.div>
                     </div>
@@ -185,7 +211,10 @@ export default function Confess() {
                             animate={{ opacity: 1 }}
                             className="wall-title"
                         >
-                            <Sparkles size={18} /> Pesan Terbaru
+                            <motion.span animate={{ rotate: [0, 20, -20, 0] }} transition={{ duration: 2, repeat: Infinity }}>
+                                <Sparkles size={18} />
+                            </motion.span>
+                            Pesan Terbaru
                         </motion.h3>
 
                         <div className="messages-list">
@@ -194,22 +223,39 @@ export default function Confess() {
                                     <motion.div
                                         key={msg.id}
                                         className="message-card glass-card"
-                                        initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                                        exit={{ opacity: 0, scale: 0.9 }}
-                                        transition={{ delay: i * 0.05 }}
+                                        initial={{ opacity: 0, scale: 0.85, y: 30, rotateX: 10 }}
+                                        animate={{ opacity: 1, scale: 1, y: 0, rotateX: 0 }}
+                                        exit={{ opacity: 0, scale: 0.85, x: -50 }}
+                                        transition={{ delay: i * 0.04, type: 'spring', stiffness: 200 }}
+                                        whileHover={{ scale: 1.02, y: -3 }}
                                         layout
                                     >
                                         <div className="msg-header">
                                             <span className="msg-sender" style={{ color: msg.color }}>{msg.name}</span>
-                                            <span className={`msg-tag tag-${msg.tag.toLowerCase()}`}>{msg.tag}</span>
+                                            <motion.span
+                                                className={`msg-tag tag-${msg.tag?.toLowerCase()}`}
+                                                whileHover={{ scale: 1.1 }}
+                                            >
+                                                {msg.tag}
+                                            </motion.span>
                                         </div>
                                         <p className="msg-content">{msg.message}</p>
                                         <div className="msg-footer">
-                                            <span className="msg-date">{new Date(msg.created_at).toLocaleDateString()}</span>
-                                            <button className="btn-like" onClick={() => handleLike(msg.id, msg.likes)}>
-                                                <Heart size={14} /> {msg.likes}
-                                            </button>
+                                            <span className="msg-date">{formatTimeAgo(msg.created_at)}</span>
+                                            <motion.button
+                                                className="btn-like"
+                                                onClick={() => handleLike(msg.id, msg.likes)}
+                                                whileHover={{ scale: 1.2 }}
+                                                whileTap={{ scale: 0.8 }}
+                                            >
+                                                <motion.div
+                                                    whileTap={{ scale: [1, 1.5, 1], rotate: [0, -15, 15, 0] }}
+                                                    transition={{ duration: 0.4 }}
+                                                >
+                                                    <Heart size={14} />
+                                                </motion.div>
+                                                {msg.likes}
+                                            </motion.button>
                                         </div>
                                     </motion.div>
                                 ))}

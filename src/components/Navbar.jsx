@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
+import ThemeToggle from './ThemeToggle'
 import './Navbar.css'
 
 const navLinks = [
@@ -34,7 +35,13 @@ export default function Navbar() {
         <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
             <div className="nav-inner">
                 <Link to="/" className="nav-logo">
-                    <img src="/logo-smk.png" alt="Logo SMK PGRI Wlingi" className="logo-img" />
+                    <motion.img
+                        src="/logo-smk.png"
+                        alt="Logo SMK PGRI Wlingi"
+                        className="logo-img"
+                        whileHover={{ rotate: [0, -10, 10, 0], scale: 1.1 }}
+                        transition={{ duration: 0.5 }}
+                    />
                     <div className="logo-text">
                         <span className="logo-title">SMK PGRI WLINGI</span>
                         <span className="logo-sub">X TKJ 3</span>
@@ -56,9 +63,22 @@ export default function Navbar() {
                     ))}
                 </div>
 
-                <button className="nav-toggle" onClick={() => setIsOpen(!isOpen)}>
-                    {isOpen ? <X size={22} /> : <Menu size={22} />}
-                </button>
+                <div className="nav-actions">
+                    <ThemeToggle />
+                    <button className="nav-toggle" onClick={() => setIsOpen(!isOpen)}>
+                        <AnimatePresence mode="wait">
+                            {isOpen ? (
+                                <motion.div key="close" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.2 }}>
+                                    <X size={22} />
+                                </motion.div>
+                            ) : (
+                                <motion.div key="menu" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.2 }}>
+                                    <Menu size={22} />
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </button>
+                </div>
             </div>
 
             <AnimatePresence>
@@ -73,9 +93,9 @@ export default function Navbar() {
                         {navLinks.map((l, i) => (
                             <motion.div
                                 key={l.path}
-                                initial={{ opacity: 0, x: -20 }}
+                                initial={{ opacity: 0, x: -30 }}
                                 animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: i * 0.05 }}
+                                transition={{ delay: i * 0.04, type: 'spring', stiffness: 300 }}
                             >
                                 <Link
                                     to={l.path}

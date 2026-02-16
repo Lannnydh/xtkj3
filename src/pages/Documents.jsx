@@ -18,15 +18,27 @@ export default function Documents() {
     return (
         <PageTransition>
             <div className="page-container">
-                <h1 className="page-title">Dokumen</h1>
-                <p className="page-subtitle">File dan dokumen penting kelas X TKJ 3</p>
+                <motion.h1 className="page-title" initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }}>Dokumen</motion.h1>
+                <motion.p className="page-subtitle" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 }}>File dan dokumen penting kelas X TKJ 3</motion.p>
 
                 <motion.div className="docs-list" variants={staggerContainer} initial="initial" animate="animate">
-                    {docs.map(d => (
-                        <motion.div key={d.id} className="doc-card glass-card" variants={fadeInUp}>
-                            <div className="doc-icon" style={{ background: `${d.color}15`, color: d.color }}>
+                    {docs.map((d, i) => (
+                        <motion.div
+                            key={d.id}
+                            className="doc-card glass-card"
+                            variants={fadeInUp}
+                            whileHover={{ scale: 1.02, x: 8, boxShadow: '0 8px 30px rgba(99,102,241,0.1)' }}
+                            whileTap={{ scale: 0.98 }}
+                            transition={{ type: 'spring', stiffness: 300 }}
+                        >
+                            <motion.div
+                                className="doc-icon"
+                                style={{ background: `${d.color}15`, color: d.color }}
+                                whileHover={{ rotate: 15, scale: 1.15 }}
+                                transition={{ type: 'spring', stiffness: 300 }}
+                            >
                                 <d.icon size={28} />
-                            </div>
+                            </motion.div>
                             <div className="doc-info">
                                 <h3>{d.name}</h3>
                                 <p>{d.desc}</p>
@@ -35,10 +47,19 @@ export default function Documents() {
                                     <span>{d.size}</span>
                                 </div>
                             </div>
-                            <button className="btn-outline doc-download">
-                                <Download size={16} />
+                            <motion.button
+                                className="btn-outline doc-download"
+                                whileHover={{ scale: 1.08, y: -2 }}
+                                whileTap={{ scale: 0.95 }}
+                            >
+                                <motion.div
+                                    whileHover={{ y: [0, 3, 0] }}
+                                    transition={{ duration: 0.5, repeat: Infinity }}
+                                >
+                                    <Download size={16} />
+                                </motion.div>
                                 <span>Unduh</span>
-                            </button>
+                            </motion.button>
                         </motion.div>
                     ))}
                 </motion.div>

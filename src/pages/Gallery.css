@@ -1,28 +1,30 @@
 .gallery-filters {
     display: flex;
-    flex-wrap: wrap;
     gap: 8px;
-    margin-bottom: 28px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
 }
 
 .masonry-grid {
     columns: 3;
-    column-gap: 14px;
+    column-gap: 16px;
 }
 
 .masonry-item {
     break-inside: avoid;
-    margin-bottom: 14px;
+    margin-bottom: 16px;
     border-radius: var(--radius-lg);
     overflow: hidden;
     position: relative;
     cursor: pointer;
     border: 1px solid var(--border-glass);
-    transition: box-shadow 0.3s;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .masonry-item:hover {
-    box-shadow: var(--shadow-glow);
+    box-shadow: 0 8px 40px rgba(99, 102, 241, 0.2), 0 0 30px rgba(99, 102, 241, 0.1);
+    transform: translateY(-4px);
+    border-color: var(--border-glass-hover);
 }
 
 .masonry-placeholder {
@@ -31,101 +33,137 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid transparent;
+    border: 2px dashed var(--border-glass);
 }
 
 .masonry-overlay {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
     padding: 16px;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+    background: linear-gradient(to top, rgba(5, 8, 22, 0.85), rgba(5, 8, 22, 0.2), transparent);
+    opacity: 0;
+    transition: opacity 0.4s;
+}
+
+.masonry-item:hover .masonry-overlay {
+    opacity: 1;
 }
 
 .masonry-cat {
     display: inline-block;
-    padding: 3px 10px;
-    background: var(--bg-glass);
+    padding: 3px 12px;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.4), rgba(139, 92, 246, 0.3));
     border-radius: var(--radius-full);
     font-size: 0.7rem;
-    color: var(--text-secondary);
+    font-weight: 600;
+    color: white;
     margin-bottom: 4px;
+    width: fit-content;
     backdrop-filter: blur(8px);
 }
 
 .masonry-overlay h3 {
     font-family: var(--font-primary);
-    font-size: 0.9rem;
-    font-weight: 700;
     color: white;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.masonry-zoom {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    color: white;
+    opacity: 0;
+    transition: all 0.4s;
+    background: rgba(99, 102, 241, 0.3);
+    backdrop-filter: blur(8px);
+    padding: 8px;
+    border-radius: 50%;
+}
+
+.masonry-item:hover .masonry-zoom {
+    opacity: 1;
+    transform: scale(1);
 }
 
 /* Lightbox */
 .lightbox {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(8px);
+    z-index: 9999;
+    background: rgba(5, 8, 22, 0.92);
+    backdrop-filter: blur(20px) saturate(180%);
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 2000;
     padding: 24px;
 }
 
 .lightbox-content {
-    max-width: 700px;
+    max-width: 750px;
     width: 100%;
-    background: var(--bg-secondary);
+    background: var(--bg-card);
+    border: 1px solid rgba(99, 102, 241, 0.2);
     border-radius: var(--radius-xl);
     overflow: hidden;
     position: relative;
+    box-shadow: 0 30px 100px rgba(0, 0, 0, 0.6), 0 0 80px rgba(99, 102, 241, 0.15);
 }
 
 .lightbox-close {
     position: absolute;
-    top: 12px;
-    right: 12px;
-    background: rgba(0, 0, 0, 0.5);
-    color: white;
-    width: 36px;
-    height: 36px;
+    top: 14px;
+    right: 14px;
+    z-index: 10;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 10;
-    transition: background 0.2s;
+    cursor: pointer;
+    transition: all 0.3s;
 }
 
 .lightbox-close:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(239, 68, 68, 0.6);
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
 }
 
 .lightbox-img {
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .lightbox-info {
-    padding: 20px 24px;
+    padding: 22px 28px;
 }
 
 .lightbox-info h2 {
     font-family: var(--font-primary);
-    font-size: 1.2rem;
-    margin-top: 6px;
+    font-size: 1.3rem;
+    font-weight: 800;
+    margin-top: 8px;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
     .masonry-grid {
         columns: 2;
     }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 480px) {
     .masonry-grid {
         columns: 1;
     }

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Send, Phone, Mail, MapPin, User, MessageSquare } from 'lucide-react'
-import PageTransition, { fadeInUp } from '../components/PageTransition'
+import { Send, Phone, Mail, MapPin, User, MessageSquare, CheckCircle } from 'lucide-react'
+import PageTransition, { fadeInUp, staggerContainer } from '../components/PageTransition'
 import './Contact.css'
 
 const contacts = [
@@ -29,8 +29,13 @@ export default function Contact() {
 
                 <div className="contact-grid">
                     {/* Contact Cards */}
-                    <motion.div className="contact-info" initial="initial" animate="animate">
-                        <h2>Info Kontak</h2>
+                    <motion.div
+                        className="contact-info"
+                        variants={staggerContainer}
+                        initial="initial"
+                        animate="animate"
+                    >
+                        <motion.h2 variants={fadeInUp}>Info Kontak</motion.h2>
                         <div className="contact-cards">
                             {contacts.map((c, i) => (
                                 <motion.div
@@ -38,11 +43,18 @@ export default function Contact() {
                                     className="contact-person glass-card"
                                     variants={fadeInUp}
                                     custom={i}
-                                    whileHover={{ scale: 1.03, boxShadow: '0 0 20px rgba(99,102,241,0.15)' }}
+                                    whileHover={{ scale: 1.03, x: 5, boxShadow: '0 8px 30px rgba(99,102,241,0.12)' }}
+                                    whileTap={{ scale: 0.97 }}
+                                    transition={{ type: 'spring', stiffness: 300 }}
                                 >
-                                    <div className="contact-avatar">
+                                    <motion.div
+                                        className="contact-avatar"
+                                        whileHover={{ rotate: 15, scale: 1.15 }}
+                                        animate={{ y: [0, -2, 0] }}
+                                        transition={{ duration: 2 + i * 0.5, repeat: Infinity }}
+                                    >
                                         <c.icon size={20} />
-                                    </div>
+                                    </motion.div>
                                     <div>
                                         <h3>{c.name}</h3>
                                         <span className="contact-role">{c.role}</span>
@@ -55,25 +67,40 @@ export default function Contact() {
                             ))}
                         </div>
 
-                        <div className="contact-extra">
-                            <div className="contact-item">
-                                <Mail size={16} />
+                        <motion.div className="contact-extra" variants={fadeInUp}>
+                            <motion.div className="contact-item" whileHover={{ x: 5 }}>
+                                <motion.div animate={{ scale: [1, 1.1, 1] }} transition={{ duration: 2, repeat: Infinity }}>
+                                    <Mail size={16} />
+                                </motion.div>
                                 <span>xtkj3@smkpgriwlingi.sch.id</span>
-                            </div>
-                            <div className="contact-item">
-                                <MapPin size={16} />
+                            </motion.div>
+                            <motion.div className="contact-item" whileHover={{ x: 5 }}>
+                                <motion.div animate={{ y: [0, -3, 0] }} transition={{ duration: 2, repeat: Infinity }}>
+                                    <MapPin size={16} />
+                                </motion.div>
                                 <span>SMK PGRI Wlingi — Kab. Blitar, Jawa Timur</span>
-                            </div>
-                        </div>
+                            </motion.div>
+                        </motion.div>
                     </motion.div>
 
                     {/* Form */}
-                    <motion.form className="contact-form glass-card" onSubmit={handleSubmit} initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }}>
+                    <motion.form
+                        className="contact-form glass-card"
+                        onSubmit={handleSubmit}
+                        initial={{ opacity: 0, x: 30, rotateY: 5 }}
+                        animate={{ opacity: 1, x: 0, rotateY: 0 }}
+                        transition={{ delay: 0.3, type: 'spring', stiffness: 200 }}
+                    >
                         <div className="form-header">
-                            <img src="/logo-smk.png" alt="Logo" className="form-logo" />
+                            <motion.img
+                                src="/logo-smk.png"
+                                alt="Logo"
+                                className="form-logo"
+                                whileHover={{ rotate: 10, scale: 1.1 }}
+                            />
                             <h2>Kirim Pesan</h2>
                         </div>
-                        <div className="form-group">
+                        <motion.div className="form-group" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
                             <label>Nama</label>
                             <div className="input-wrap">
                                 <User size={16} />
@@ -85,8 +112,8 @@ export default function Contact() {
                                     required
                                 />
                             </div>
-                        </div>
-                        <div className="form-group">
+                        </motion.div>
+                        <motion.div className="form-group" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
                             <label>Email</label>
                             <div className="input-wrap">
                                 <Mail size={16} />
@@ -98,8 +125,8 @@ export default function Contact() {
                                     required
                                 />
                             </div>
-                        </div>
-                        <div className="form-group">
+                        </motion.div>
+                        <motion.div className="form-group" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}>
                             <label>Pesan</label>
                             <div className="input-wrap textarea-wrap">
                                 <MessageSquare size={16} />
@@ -111,15 +138,14 @@ export default function Contact() {
                                     required
                                 />
                             </div>
-                        </div>
+                        </motion.div>
                         <motion.button
                             type="submit"
                             className="btn-primary submit-btn"
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
+                            whileHover={{ scale: 1.03, y: -2 }}
+                            whileTap={{ scale: 0.97 }}
                         >
-                            <Send size={16} />
-                            {sent ? 'Pesan Terkirim! ✓' : 'Kirim Pesan'}
+                            {sent ? <><CheckCircle size={16} /> Pesan Terkirim! ✓</> : <><Send size={16} /> Kirim Pesan</>}
                         </motion.button>
                     </motion.form>
                 </div>

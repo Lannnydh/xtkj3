@@ -1,36 +1,36 @@
 .tasks-toolbar {
     display: flex;
     justify-content: flex-end;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
 }
 
 .view-toggle {
     display: flex;
+    gap: 4px;
     background: var(--bg-glass);
     border: 1px solid var(--border-glass);
-    border-radius: var(--radius-full);
-    overflow: hidden;
+    border-radius: var(--radius-lg);
+    padding: 4px;
 }
 
 .toggle-btn {
     display: flex;
     align-items: center;
     gap: 6px;
-    padding: 8px 18px;
-    background: transparent;
+    padding: 10px 18px;
+    border-radius: var(--radius-md);
+    background: none;
+    border: none;
     color: var(--text-secondary);
     font-size: 0.85rem;
-    font-weight: 500;
-    transition: all 0.2s;
-}
-
-.toggle-btn:hover {
-    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.3s;
 }
 
 .toggle-btn.active {
     background: var(--accent-gradient);
     color: white;
+    box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
 }
 
 /* List */
@@ -43,15 +43,32 @@
 .task-item {
     display: flex;
     align-items: center;
-    gap: 14px;
-    padding: 18px 20px;
+    gap: 16px;
+    padding: 18px 22px;
+    border-left: 3px solid transparent;
+    transition: border-color 0.3s;
+}
+
+.task-item:hover {
+    border-left-color: var(--accent-primary);
 }
 
 .task-status-dot {
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
     flex-shrink: 0;
+    position: relative;
+}
+
+.task-status-dot::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    background: inherit;
+    opacity: 0.3;
+    filter: blur(4px);
 }
 
 .task-body {
@@ -61,15 +78,15 @@
 .task-body h3 {
     font-family: var(--font-primary);
     font-size: 0.95rem;
-    font-weight: 600;
-    margin-bottom: 4px;
+    font-weight: 700;
 }
 
 .task-meta {
     display: flex;
-    gap: 14px;
-    font-size: 0.78rem;
+    gap: 16px;
+    font-size: 0.8rem;
     color: var(--text-muted);
+    margin-top: 4px;
 }
 
 .task-meta span {
@@ -86,36 +103,52 @@
 }
 
 .kanban-col {
-    min-height: 200px;
+    background: var(--bg-glass);
+    border: 1px solid var(--border-glass);
+    border-radius: var(--radius-lg);
+    padding: 18px;
 }
 
 .kanban-header {
     display: flex;
     align-items: center;
     gap: 8px;
-    padding: 12px 0;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
     border-bottom: 2px solid;
-    margin-bottom: 12px;
-}
-
-.kanban-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
 }
 
 .kanban-header h3 {
     font-family: var(--font-primary);
     font-size: 0.9rem;
-    flex: 1;
+    font-weight: 700;
+}
+
+.kanban-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    position: relative;
+}
+
+.kanban-dot::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    background: inherit;
+    opacity: 0.3;
+    filter: blur(4px);
 }
 
 .kanban-count {
+    margin-left: auto;
     background: var(--bg-glass);
-    padding: 2px 8px;
+    padding: 2px 10px;
     border-radius: var(--radius-full);
     font-size: 0.75rem;
     color: var(--text-muted);
+    border: 1px solid var(--border-glass);
 }
 
 .kanban-cards {
@@ -125,24 +158,22 @@
 }
 
 .kanban-card {
-    padding: 16px;
+    padding: 16px 18px;
+    border-left: 2px solid var(--accent-primary);
 }
 
 .kanban-card h4 {
     font-family: var(--font-primary);
     font-size: 0.9rem;
-    font-weight: 600;
-    margin-bottom: 6px;
+    font-weight: 700;
+    margin-bottom: 4px;
 }
 
 .kanban-mapel {
-    display: inline-block;
-    padding: 2px 8px;
-    background: var(--bg-glass);
-    border-radius: var(--radius-full);
-    font-size: 0.72rem;
-    color: var(--text-secondary);
-    margin-bottom: 8px;
+    font-size: 0.8rem;
+    color: var(--accent-primary);
+    font-weight: 600;
+    text-shadow: 0 0 6px var(--accent-primary-glow);
 }
 
 .kanban-foot {
@@ -151,6 +182,7 @@
     gap: 4px;
     font-size: 0.75rem;
     color: var(--text-muted);
+    margin-top: 8px;
 }
 
 @media (max-width: 768px) {

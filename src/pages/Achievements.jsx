@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { Trophy, Medal, Award, Star } from 'lucide-react'
-import PageTransition, { staggerContainer, fadeInUp } from '../components/PageTransition'
+import PageTransition, { staggerContainer, bounceIn } from '../components/PageTransition'
 import './Achievements.css'
 
 const achievements = [
@@ -18,21 +18,44 @@ export default function Achievements() {
     return (
         <PageTransition>
             <div className="page-container">
-                <h1 className="page-title">Prestasi</h1>
-                <p className="page-subtitle">Pencapaian membanggakan dari kelas X TKJ 3</p>
+                <motion.h1 className="page-title" initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }}>Prestasi</motion.h1>
+                <motion.p className="page-subtitle" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 }}>Pencapaian membanggakan dari kelas X TKJ 3</motion.p>
 
                 <motion.div className="achievements-grid" variants={staggerContainer} initial="initial" animate="animate">
-                    {achievements.map(a => (
-                        <motion.div key={a.id} className="achieve-card glass-card" variants={fadeInUp}>
-                            <div className="achieve-icon" style={{ background: `${a.color}15`, color: a.color }}>
+                    {achievements.map((a, i) => (
+                        <motion.div
+                            key={a.id}
+                            className="achieve-card glass-card"
+                            variants={bounceIn}
+                            whileHover={{
+                                scale: 1.05,
+                                y: -8,
+                                boxShadow: `0 12px 40px ${a.color}20`
+                            }}
+                            whileTap={{ scale: 0.95 }}
+                            transition={{ type: 'spring', stiffness: 300 }}
+                        >
+                            <motion.div
+                                className="achieve-icon"
+                                style={{ background: `${a.color}15`, color: a.color }}
+                                whileHover={{ rotate: 20, scale: 1.2 }}
+                                animate={{ y: [0, -3, 0] }}
+                                transition={{ duration: 2 + i * 0.3, repeat: Infinity, ease: 'easeInOut' }}
+                            >
                                 <a.icon size={28} />
-                            </div>
+                            </motion.div>
                             <div className="achieve-body">
-                                <span className="achieve-cat">{a.category}</span>
+                                <motion.span
+                                    className="achieve-cat"
+                                    whileHover={{ scale: 1.1 }}
+                                >
+                                    {a.category}
+                                </motion.span>
                                 <h3>{a.title}</h3>
                                 <p className="achieve-event">{a.event}</p>
                                 <span className="achieve-year">{a.year}</span>
                             </div>
+                            <div className="achieve-shine" />
                         </motion.div>
                     ))}
                 </motion.div>

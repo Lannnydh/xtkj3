@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
-import { Crown, Star, Shield, Coins } from 'lucide-react'
-import PageTransition, { staggerContainer, fadeInUp } from '../components/PageTransition'
+import { Crown, Star, Shield, Coins, Search } from 'lucide-react'
+import { useState } from 'react'
+import PageTransition, { staggerContainer, fadeInUp, bounceIn, scaleIn } from '../components/PageTransition'
 import './Members.css'
 
 const waliKelas = { name: 'Syahfira Yaumi Khoirun Annisa, S.Pd', role: 'Wali Kelas' }
@@ -13,41 +14,18 @@ const pengurus = [
 ]
 
 const allStudents = [
-    'Elvira Nur Fitriya',
-    'Enesia Giana Putiri',
-    'Erawati',
-    'Estianza Adinca Flovirensya',
-    'Faulina Nuraini Putri',
-    'Favian Mahmud Adi Pratama',
-    'Faza Ahmad Al Fariszy',
-    'Fellia Nia Hani Maharani',
-    'Fitria Ningsih',
-    'Hanafi Wardana Putra',
-    'Hendy Setyawan',
-    'Hesti Maulidya',
-    'Heven Jovanska Bertha Satria',
-    'Icha Allyakeysa Billa',
-    'Ilham Mifdhal Febriansyah',
-    'Intan Tia Cahyani',
-    'Irsqah Kendol Widianda',
-    'Jasson Wong Zhern Jiee',
-    'Jenita Ayu Nofi Yanti',
-    'Jessica Putri Wiyana',
-    'Jevelin Beby Diamond',
-    'Jua Alivia Febianiroh',
-    'Kafina Fitri Devikayasna',
-    'Keand Gandung Permana',
-    'Kervin Artha Billah',
-    'Kevin Fataqur Rasya',
-    'Layli Nuraini',
-    'Lensi Kurniasari',
-    'Lina Faizatul Fitria',
-    'Lutfiana Cahya Imadany',
-    'Marchel Imajesta Setya Permadhani',
-    'Maulana Yudha Pratama',
-    'Melisa Dwi Maulidia',
-    'Mikael Candra',
-    'Mochammad Saka Syahwanis',
+    'Elvira Nur Fitriya', 'Enesia Giana Putiri', 'Erawati',
+    'Estianza Adinca Flovirensya', 'Faulina Nuraini Putri', 'Favian Mahmud Adi Pratama',
+    'Faza Ahmad Al Fariszy', 'Fellia Nia Hani Maharani', 'Fitria Ningsih',
+    'Hanafi Wardana Putra', 'Hendy Setyawan', 'Hesti Maulidya',
+    'Heven Jovanska Bertha Satria', 'Icha Allyakeysa Billa', 'Ilham Mifdhal Febriansyah',
+    'Intan Tia Cahyani', 'Irsqah Kendol Widianda', 'Jasson Wong Zhern Jiee',
+    'Jenita Ayu Nofi Yanti', 'Jessica Putri Wiyana', 'Jevelin Beby Diamond',
+    'Jua Alivia Febianiroh', 'Kafina Fitri Devikayasna', 'Keand Gandung Permana',
+    'Kervin Artha Billah', 'Kevin Fataqur Rasya', 'Layli Nuraini',
+    'Lensi Kurniasari', 'Lina Faizatul Fitria', 'Lutfiana Cahya Imadany',
+    'Marchel Imajesta Setya Permadhani', 'Maulana Yudha Pratama', 'Melisa Dwi Maulidia',
+    'Mikael Candra', 'Mochammad Saka Syahwanis',
 ]
 
 function getInitials(name) {
@@ -62,6 +40,12 @@ function hashColor(name) {
 }
 
 export default function Members() {
+    const [search, setSearch] = useState('')
+
+    const filteredStudents = allStudents.filter(name =>
+        name.toLowerCase().includes(search.toLowerCase())
+    )
+
     return (
         <PageTransition>
             <div className="page-container">
@@ -78,7 +62,7 @@ export default function Members() {
                 >
                     <motion.div
                         className="wali-avatar"
-                        animate={{ rotate: [0, 5, -5, 0] }}
+                        animate={{ rotate: [0, 5, -5, 0], scale: [1, 1.1, 1] }}
                         transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
                     >
                         <Star size={28} />
@@ -96,45 +80,69 @@ export default function Members() {
                         <motion.div
                             key={i}
                             className="pengurus-card glass-card"
-                            variants={fadeInUp}
+                            variants={bounceIn}
                             whileHover={{ scale: 1.05, rotate: 1, boxShadow: '0 0 30px rgba(99,102,241,0.2)' }}
                             transition={{ type: 'spring', stiffness: 300 }}
                         >
-                            <div className="member-avatar" style={{ background: `${hashColor(p.name)}20`, color: hashColor(p.name) }}>
+                            <motion.div
+                                className="member-avatar"
+                                style={{ background: `${hashColor(p.name)}20`, color: hashColor(p.name) }}
+                                whileHover={{ scale: 1.15, rotate: 10 }}
+                            >
                                 {getInitials(p.name)}
-                            </div>
+                            </motion.div>
                             <h3>{p.name}</h3>
                             <div className="role-badge">
-                                <p.icon size={12} />
+                                <motion.span animate={{ rotate: [0, 15, -15, 0] }} transition={{ duration: 3, repeat: Infinity }}>
+                                    <p.icon size={12} />
+                                </motion.span>
                                 <span>{p.role}</span>
                             </div>
                         </motion.div>
                     ))}
                 </motion.div>
 
-                {/* All members */}
+                {/* Search */}
                 <motion.h2 className="section-heading" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>Semua Siswa</motion.h2>
+                <motion.div className="member-search" initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+                    <Search size={18} />
+                    <input
+                        type="text"
+                        placeholder="Cari nama siswa..."
+                        value={search}
+                        onChange={e => setSearch(e.target.value)}
+                    />
+                </motion.div>
+
+                {/* All members */}
                 <motion.div className="members-grid" variants={staggerContainer} initial="initial" whileInView="animate" viewport={{ once: true }}>
-                    {allStudents.map((name, i) => {
+                    {filteredStudents.map((name, i) => {
                         const role = pengurus.find(p => p.name === name)
                         return (
                             <motion.div
-                                key={i}
+                                key={name}
                                 className="member-card glass-card"
                                 variants={fadeInUp}
-                                whileHover={{ scale: 1.08, y: -5, boxShadow: '0 8px 25px rgba(99,102,241,0.15)' }}
+                                whileHover={{ scale: 1.08, y: -8, boxShadow: '0 12px 30px rgba(99,102,241,0.15)' }}
+                                whileTap={{ scale: 0.95 }}
                                 transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+                                layout
                             >
-                                <div className="member-avatar" style={{ background: `${hashColor(name)}15`, color: hashColor(name) }}>
+                                <motion.div
+                                    className="member-avatar"
+                                    style={{ background: `${hashColor(name)}15`, color: hashColor(name) }}
+                                    whileHover={{ rotate: 15, scale: 1.1 }}
+                                >
                                     {getInitials(name)}
-                                </div>
+                                </motion.div>
                                 <h4>{name}</h4>
                                 {role && <span className="mini-role">{role.role}</span>}
-                                <span className="member-num">{i + 1}</span>
+                                <span className="member-num">{allStudents.indexOf(name) + 1}</span>
                             </motion.div>
                         )
                     })}
                 </motion.div>
+                {filteredStudents.length === 0 && <p className="empty-msg">Tidak ditemukan siswa dengan nama tersebut.</p>}
             </div>
         </PageTransition>
     )
