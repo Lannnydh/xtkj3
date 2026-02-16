@@ -95,6 +95,20 @@
     font-size: 0.85rem;
 }
 
+.subject-name {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.empty-subject {
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.schedule-desktop {
+    display: block;
+}
+
 /* Mobile accordion */
 .schedule-mobile {
     display: none;
@@ -241,7 +255,7 @@
 }
 
 @media (max-width: 768px) {
-    .schedule-table-wrap {
+    .schedule-desktop {
         display: none;
     }
 

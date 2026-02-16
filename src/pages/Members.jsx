@@ -7,8 +7,8 @@ import './Members.css'
 const waliKelas = { name: 'Syahfira Yaumi Khoirun Annisa, S.Pd', role: 'Wali Kelas' }
 
 const pengurus = [
-    { name: 'Heven Jovanska Bertha Satria', role: 'Ketua Kelas', icon: Crown },
-    { name: 'Keand Gandung Permana', role: 'Wakil Ketua', icon: Shield },
+    { name: 'Favian Mahmud Adi Pratama', role: 'Ketua Kelas', icon: Crown },
+    { name: 'Marchel Imajesta Setya Permadhani', role: 'Wakil Ketua', icon: Shield },
     { name: 'Jenita Ayu Nofi Yanti', role: 'Bendahara 1', icon: Coins },
     { name: 'Lutfiana Cahya Imadany', role: 'Bendahara 2', icon: Coins },
 ]
