@@ -12,13 +12,19 @@ import Documents from './pages/Documents'
 import Achievements from './pages/Achievements'
 import Confess from './pages/Confess'
 import Contact from './pages/Contact'
+import Login from './pages/Login'
+import Admin from './pages/Admin'
+import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
   const location = useLocation()
+  
+  // Sembunyikan Navbar & Footer di halaman login dan admin
+  const hideNavigation = location.pathname === '/login' || location.pathname.startsWith('/admin')
 
   return (
     <>
-      <Navbar />
+      {!hideNavigation && <Navbar />}
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
           <Route path="/" element={<Home />} />
@@ -31,9 +37,16 @@ function App() {
           <Route path="/achievements" element={<Achievements />} />
           <Route path="/confess" element={<Confess />} />
           <Route path="/contact" element={<Contact />} />
+          
+          <Route path="/login" element={<Login />} />
+          <Route path="/admin" element={
+            <ProtectedRoute>
+              <Admin />
+            </ProtectedRoute>
+          } />
         </Routes>
       </AnimatePresence>
-      <Footer />
+      {!hideNavigation && <Footer />}
     </>
   )
 }
