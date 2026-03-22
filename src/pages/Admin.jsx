@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
-import { LayoutDashboard, Calendar, Users, Megaphone, CheckSquare, LogOut, Loader, Home } from 'lucide-react'
+import { LayoutDashboard, Calendar, Users, Megaphone, CheckSquare, LogOut, Loader, Home, UserCircle, Image as ImageIcon, MessageSquare, FolderOpen, Award, Phone } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import PageTransition from '../components/PageTransition'
 import './Admin.css'
@@ -12,12 +12,24 @@ import AdminSchedule from './admin/AdminSchedule'
 import AdminPiket from './admin/AdminPiket'
 import AdminAnnouncements from './admin/AdminAnnouncements'
 import AdminTasks from './admin/AdminTasks'
+import AdminMembers from './admin/AdminMembers'
+import AdminGallery from './admin/AdminGallery'
+import AdminConfess from './admin/AdminConfess'
+import AdminDocuments from './admin/AdminDocuments'
+import AdminAchievements from './admin/AdminAchievements'
+import AdminContact from './admin/AdminContact'
 
 const tabs = [
     { id: 'jadwal', label: 'Jadwal Kelas', icon: Calendar },
     { id: 'piket', label: 'Jadwal Piket', icon: Users },
     { id: 'pengumuman', label: 'Pengumuman', icon: Megaphone },
     { id: 'tugas', label: 'Tugas', icon: CheckSquare },
+    { id: 'anggota', label: 'Anggota', icon: UserCircle },
+    { id: 'galeri', label: 'Galeri', icon: ImageIcon },
+    { id: 'confess', label: 'Confess', icon: MessageSquare },
+    { id: 'dokumen', label: 'Dokumen', icon: FolderOpen },
+    { id: 'prestasi', label: 'Prestasi', icon: Award },
+    { id: 'kontak', label: 'Kontak', icon: Phone },
 ]
 
 export default function Admin() {
@@ -126,6 +138,12 @@ export default function Admin() {
                                 {activeTab === 'piket' && <AdminPiket />}
                                 {activeTab === 'pengumuman' && <AdminAnnouncements />}
                                 {activeTab === 'tugas' && <AdminTasks />}
+                                {activeTab === 'anggota' && <AdminMembers />}
+                                {activeTab === 'galeri' && <AdminGallery />}
+                                {activeTab === 'confess' && <AdminConfess />}
+                                {activeTab === 'dokumen' && <AdminDocuments />}
+                                {activeTab === 'prestasi' && <AdminAchievements />}
+                                {activeTab === 'kontak' && <AdminContact />}
                             </motion.div>
                         </AnimatePresence>
                     </div>

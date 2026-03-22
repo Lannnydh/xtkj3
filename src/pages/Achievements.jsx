@@ -1,64 +1,88 @@
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Trophy, Medal, Award, Star } from 'lucide-react'
-import PageTransition, { staggerContainer, bounceIn } from '../components/PageTransition'
+import { Award, Calendar, Loader } from 'lucide-react'
+import { supabase } from '../lib/supabaseClient'
+import PageTransition, { staggerContainer, fadeInUp } from '../components/PageTransition'
 import './Achievements.css'
 
-const achievements = [
-    { id: 1, title: 'Juara 1 Lomba Jaringan Komputer', event: 'LKS Tingkat Kota', year: '2026', category: 'Akademik', icon: Trophy, color: '#f59e0b' },
-    { id: 2, title: 'Juara 2 Classmeeting Basket', event: 'Classmeeting Semester 1', year: '2025', category: 'Olahraga', icon: Medal, color: '#8b5cf6' },
-    { id: 3, title: 'Best Presentation PKK', event: 'Expo Produk Kreatif', year: '2025', category: 'Akademik', icon: Award, color: '#6366f1' },
-    { id: 4, title: 'Juara 3 Lomba Debat B. Inggris', event: 'English Competition', year: '2025', category: 'Akademik', icon: Medal, color: '#10b981' },
-    { id: 5, title: 'Kelas Terbersih Bulan Desember', event: 'Award Bulanan Sekolah', year: '2025', category: 'Kebersihan', icon: Star, color: '#ec4899' },
-    { id: 6, title: 'Juara 1 Futsal Antar Kelas', event: 'Sport Event OSIS', year: '2025', category: 'Olahraga', icon: Trophy, color: '#f59e0b' },
-    { id: 7, title: 'Siswa Berprestasi Semester 1', event: 'Award Sekolah — Andi Pratama', year: '2025', category: 'Akademik', icon: Star, color: '#3b82f6' },
-    { id: 8, title: 'Juara Harapan Lomba Poster Hari Guru', event: 'Peringatan Hari Guru', year: '2025', category: 'Seni', icon: Award, color: '#a855f7' },
-]
-
 export default function Achievements() {
+    const [achievements, setAchievements] = useState([])
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        const fetchAchievements = async () => {
+            try {
+                const { data, error } = await supabase
+                    .from('prestasi')
+                    .select('*')
+                    .order('created_at', { ascending: false })
+
+                if (error) throw error
+                setAchievements(data)
+            } catch (error) {
+                console.error('Error fetching achievements:', error)
+            } finally {
+                setLoading(false)
+            }
+        }
+        fetchAchievements()
+    }, [])
+
+    if (loading) {
+        return (
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', flexDirection: 'column', gap: '16px' }}>
+                <Loader className="spin text-primary" size={40} />
+                <p>Memuat prestasi kelas...</p>
+            </div>
+        )
+    }
+
     return (
         <PageTransition>
             <div className="page-container">
-                <motion.h1 className="page-title" initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }}>Prestasi</motion.h1>
-                <motion.p className="page-subtitle" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 }}>Pencapaian membanggakan dari kelas X TKJ 3</motion.p>
+                <motion.h1 className="page-title" initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }}>Prestasi Kelas</motion.h1>
+                <motion.p className="page-subtitle" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 }}>Piala, medali, dan penghargaan X TKJ 3</motion.p>
 
-                <motion.div className="achievements-grid" variants={staggerContainer} initial="initial" animate="animate">
-                    {achievements.map((a, i) => (
-                        <motion.div
-                            key={a.id}
-                            className="achieve-card glass-card"
-                            variants={bounceIn}
-                            whileHover={{
-                                scale: 1.05,
-                                y: -8,
-                                boxShadow: `0 12px 40px ${a.color}20`
-                            }}
-                            whileTap={{ scale: 0.95 }}
-                            transition={{ type: 'spring', stiffness: 300 }}
-                        >
+                {achievements.length === 0 ? (
+                    <div style={{ textAlign: 'center', padding: '60px 20px', color: 'var(--text-muted)' }}>
+                        <p>Belum ada prestasi yang dicatat. Mari cetak sejarah baru!</p>
+                    </div>
+                ) : (
+                    <motion.div className="timeline-container" variants={staggerContainer} initial="initial" animate="animate">
+                        {achievements.map((item, index) => (
                             <motion.div
-                                className="achieve-icon"
-                                style={{ background: `${a.color}15`, color: a.color }}
-                                whileHover={{ rotate: 20, scale: 1.2 }}
-                                animate={{ y: [0, -3, 0] }}
-                                transition={{ duration: 2 + i * 0.3, repeat: Infinity, ease: 'easeInOut' }}
+                                key={item.id}
+                                className={`timeline-item ${index % 2 === 0 ? 'left' : 'right'}`}
+                                variants={fadeInUp}
+                                viewport={{ once: true, margin: '-50px' }}
                             >
-                                <a.icon size={28} />
-                            </motion.div>
-                            <div className="achieve-body">
-                                <motion.span
-                                    className="achieve-cat"
-                                    whileHover={{ scale: 1.1 }}
+                                <div className="timeline-dot">
+                                    <Award size={20} />
+                                </div>
+
+                                <motion.div
+                                    className="timeline-content glass-card"
+                                    whileHover={{ scale: 1.02, boxShadow: '0 8px 30px rgba(99,102,241,0.15)' }}
+                                    transition={{ type: 'spring', stiffness: 300 }}
                                 >
-                                    {a.category}
-                                </motion.span>
-                                <h3>{a.title}</h3>
-                                <p className="achieve-event">{a.event}</p>
-                                <span className="achieve-year">{a.year}</span>
-                            </div>
-                            <div className="achieve-shine" />
-                        </motion.div>
-                    ))}
-                </motion.div>
+                                    {item.image_url && (
+                                        <div className="timeline-img-wrapper">
+                                            <img src={item.image_url} alt={item.judul} />
+                                        </div>
+                                    )}
+                                    <div className="timeline-text">
+                                        <div className="timeline-date">
+                                            <Calendar size={14} />
+                                            <span>{item.tanggal || 'Waktu tidak diketahui'}</span>
+                                        </div>
+                                        <h3>{item.judul}</h3>
+                                        <p>{item.deskripsi}</p>
+                                    </div>
+                                </motion.div>
+                            </motion.div>
+                        ))}
+                    </motion.div>
+                )}
             </div>
         </PageTransition>
     )
